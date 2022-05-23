@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
+import {Course} from "./shared/course";
 
 @Component({
   selector: 'bs-root',
-  templateUrl: './app.component.html',
+  template: `<bs-course-list *ngIf="listOn"></bs-course-list>
+  <bs-course-details *ngIf="detailsOn" [course]="course"></bs-course-details>`,
   styles: []
 })
 export class AppComponent {
-  title = 'gostudent';
+  listOn = true;
+  detailsOn = false;
+
+  course: Course | undefined;
 }
