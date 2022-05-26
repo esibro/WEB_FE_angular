@@ -1,0 +1,15 @@
+<span *ngIf="course">
+    <div class="content">
+      <div class="header">{{ course.subject }}</div>
+      <div class="description"> {{ course.description }} </div>
+      <div class="metadata">
+        <span *ngFor="let user of course.users; last as l">
+          <span *ngIf="user.role==='teacher'">
+          {{ user.firstName }} {{ user.lastName }}<span *ngIf="!l">
+          </span></span></span>
+      </div>
+      <span *ngFor="let timeslot of course.timeslots;">
+        {{timeslot.date}}
+      </span>
+    </div>
+</span>

@@ -1,0 +1,16 @@
+<div class="ui grid" *ngIf="course">
+  <div class="twelve wide column">
+    <h1 class="ui header">{{ course.subject }}</h1>
+    <h3 class="ui header">{{ course.description }}</h3>
+    <div class="ui divider"></div>
+    <div class="ui grid">
+      <div class="four wide column">
+        <h4 class="ui header">Lehrende</h4>
+        <span *ngFor="let user of course.users; last as l">
+          {{ user.firstName }} {{ user.lastName }}<span *ngIf="!l">,</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<button (click)="showCourseList()" class="ui red button">Zurück zur Kursliste</button>
