@@ -3,9 +3,7 @@ import {Course} from "./shared/course";
 
 @Component({
   selector: 'bs-root',
-  template: `<bs-course-list (showDetailsEvent)="showDetails($event)" *ngIf="listOn"></bs-course-list>
-  <bs-course-details (showListEvent)="showList()" *ngIf="detailsOn" [course]="course"></bs-course-details>`,
-  styles: []
+  templateUrl: 'app.component.html'
 })
 export class AppComponent {
   listOn = true;
@@ -22,4 +20,5 @@ export class AppComponent {
   }
 
   course: Course | undefined;
+  title = 'GoStudent';
 }
