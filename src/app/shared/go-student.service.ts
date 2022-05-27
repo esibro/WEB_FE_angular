@@ -13,17 +13,17 @@ export class GoStudentService {
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Array<Course>> {
-    return this.http.get(`${this.api}/courses`)
+    return this.http.get<Array<Course>>(`${this.api}/courses`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
   getSingle(subject: string): Observable<Course> {
-    return this.http.get<Course>(`${this.api}/course/${subject}`)
+    return this.http.get<Course>(`${this.api}/courses/${subject}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 
   remove(subject: string): Observable<any> {
-    return this.http.delete(`${this.api}/course/${subject}`)
+    return this.http.delete(`${this.api}/courses/${subject}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 

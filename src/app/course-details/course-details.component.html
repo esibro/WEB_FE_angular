@@ -13,9 +13,12 @@
     </div>
   </div>
 </div>
-<button [routerLink]="'/courses'" class="ui red button">Zurück zur
-  Kursliste</button>
+<button [routerLink]="'/courses'" class="ui red button">Zurück zur Kursliste</button>
 <button class="ui tiny red labeled icon button"
         (click)="removeBook()">
   <i class="remove icon"></i> Kurs löschen
 </button>
+<a class="ui tiny yellow labeled icon button"
+   [routerLink]="['../../admin', course?.subject]">
+  <i class="write icon"></i> Edit course
+</a>

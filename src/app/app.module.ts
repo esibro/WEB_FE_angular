@@ -9,6 +9,8 @@ import {GoStudentService} from "./shared/go-student.service";
 import { HomeComponent } from './home/home.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {HttpClientModule} from "@angular/common/http";
+import { CourseFormComponent } from './course-form/course-form.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -16,10 +18,11 @@ import {HttpClientModule} from "@angular/common/http";
     CourseListComponent,
     CourseListItemComponent,
     CourseDetailsComponent,
-    HomeComponent
+    HomeComponent,
+    CourseFormComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, HttpClientModule
+    BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule
   ],
   providers: [GoStudentService],
   bootstrap: [AppComponent]
