@@ -1,7 +1,8 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Course} from "../shared/course";
 import {GoStudentService} from "../shared/go-student.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {CourseFactory} from "../shared/course-factory";
 
 @Component({
   selector: 'bs-course-details',
@@ -11,16 +12,23 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class CourseDetailsComponent implements OnInit {
 
-  @Input() course : Course | undefined;
-  @Output() showListEvent= new EventEmitter<any>();
-  constructor(private bs: GoStudentService, private route: ActivatedRoute) { }
+  course : Course = CourseFactory.empty();
+
+  constructor(private bs: GoStudentService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     const params = this.route.snapshot.params;
-    this.course = this.bs.getSingle(params['subject']);
+    this.bs.getSingle(params['subject']).subscribe(c => this.course = c);
+
   }
-  showCourseList() {
-    this.showListEvent.emit();
+
+  removeBook() {
+    if (confirm('Kurs wirklich löschen?')) {
+      this.bs.remove(this.course.subject)
+        .subscribe(res => this.router.navigate(['../'], { relativeTo: this.route }));
+      console.log("Course deleted");
+    }
   }
+
 
 }

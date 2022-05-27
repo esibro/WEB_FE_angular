@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Course} from "./shared/course";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'bs-root',

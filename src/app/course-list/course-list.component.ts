@@ -12,15 +12,10 @@ import {GoStudentService} from "../shared/go-student.service";
 export class CourseListComponent implements OnInit {
 
   courses : Course[] = [];
-  @Output() showDetailsEvent = new EventEmitter<Course>();
   constructor(private bs: GoStudentService) { }
 
   ngOnInit(): void {
-    this.courses = this.bs.getAll();
-  }
-
-  showDetails(course: Course) {
-    this.showDetailsEvent.emit(course);
+    this.bs.getAll().subscribe(res => this.courses = res);
   }
 
 }
