@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'courses', component: CourseListComponent },
   { path: 'courses/:subject', component: CourseDetailsComponent },
   { path: 'admin', component: CourseFormComponent },
-  { path: 'admin/:isbn', component: CourseFormComponent }
+  { path: 'admin/:subject', component: CourseFormComponent }
 ];
 
 @NgModule({

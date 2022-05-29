@@ -7,7 +7,15 @@
       <div class="four wide column">
         <h4 class="ui header">Lehrende</h4>
         <span *ngFor="let user of course.users; last as l">
-          {{ user.firstName }} {{ user.lastName }}<span *ngIf="!l">,</span>
+          <span *ngIf="user.role==='teacher'">
+            {{ user.firstname }} {{ user.lastname }}<span *ngIf="!l">,</span></span>
+        </span>
+        <h4 class="ui header">Level: {{ course.level }}</h4>
+      </div>
+      <div class="four wide column">
+        <h4 class="ui header">verfügbare Termine</h4>
+        <span *ngFor="let timeslot of course.timeslots; last as l">
+          {{ timeslot.date }}<span *ngIf="!l"><br></span>
         </span>
       </div>
     </div>

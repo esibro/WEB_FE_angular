@@ -5,7 +5,7 @@
       <div class="metadata">
         <span *ngFor="let user of course.users; last as l">
           <span *ngIf="user.role==='teacher'">
-          {{ user.firstName }} {{ user.lastName }}<span *ngIf="!l">
+          {{ user.firstname }} {{ user.lastname }}<span *ngIf="!l">
           </span></span></span>
       </div>
       <span *ngFor="let timeslot of course.timeslots;">

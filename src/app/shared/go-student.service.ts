@@ -27,6 +27,16 @@ export class GoStudentService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 
+  update(course: Course): Observable<any>{
+    return this.http.put(`${this.api}/courses/${course.subject}`, course)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+  create(course: Course) : Observable<any>{
+    return this.http.post(`${this.api}/courses`, course)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
   private errorHandler(error: Error | any) : Observable<any> {
     return throwError(() => new Error(error));
   }

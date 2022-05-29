@@ -1,5 +1,37 @@
 <h1>Course form</h1>
 <form class="ui large form" [formGroup]="courseForm" (ngSubmit)="submitForm()">
+<input type="hidden" formControlName="id">
 
+  <div class="field">
+    <label>Fach</label>
+    <input formControlName="subject">
+    <div *ngIf="errors['subject']" class="ui negative message"> {{errors['subject']}}</div>
+  </div>
+  <div class="field">
+    <label>Beschreibung</label>
+    <textarea formControlName="description" rows="3"></textarea>
+  </div>
+  <div class="field">
+    <label>Level</label>
+    <input formControlName="level" placeholder="For which level? eg. High School">
+  </div>
+
+  <div class="field">
+    <label>Timeslots</label>
+    <div formArrayName="timeslots">
+      <div class="fields" *ngFor="let control of timeslots?.controls; index as i; last as l" [formGroupName]="i">
+        <input type="hidden" name="id">
+        <div class="nine wide field">
+          <!---PIPING NEEDED-->
+          <input asp-for="MyDate" asp-format="{0:yyyy-MM-dd}" placeholder="Format: 2022-05-20 13:30:00" formControlName="date"/>
+        </div>
+        <div class="one wide field" *ngIf="l">
+          <button (click)="addTimeslotControl()" class="ui large button">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="ui button" [disabled]="courseForm.invalid">Save course</button>
 
 </form>

@@ -14,9 +14,9 @@ export class CourseFactory {
       rawCourse.level,
       rawCourse.status,
       rawCourse.users,
-      //rawCourse.timeslots,
-      typeof(rawCourse.timeslots) === 'string'?
-        new Date(rawCourse.timeslots) : rawCourse.timeslots,
+      rawCourse.timeslots,
+      //typeof(rawCourse.timeslots) === 'string'?
+        //new Date(rawCourse.timeslots) : rawCourse.timeslots,
       rawCourse.description,
     )
   }
