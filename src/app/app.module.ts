@@ -11,6 +11,8 @@ import {AppRoutingModule} from "./app-routing.module";
 import {HttpClientModule} from "@angular/common/http";
 import { CourseFormComponent } from './course-form/course-form.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { LoginComponent } from './login/login.component';
+import {AuthenticationService} from "./shared/authentication.service";
 
 @NgModule({
   declarations: [
@@ -19,12 +21,13 @@ import {ReactiveFormsModule} from "@angular/forms";
     CourseListItemComponent,
     CourseDetailsComponent,
     HomeComponent,
-    CourseFormComponent
+    CourseFormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule
   ],
-  providers: [GoStudentService],
+  providers: [GoStudentService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

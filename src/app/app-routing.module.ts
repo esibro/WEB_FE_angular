@@ -4,6 +4,7 @@ import {HomeComponent} from "./home/home.component";
 import {CourseListComponent} from "./course-list/course-list.component";
 import {CourseDetailsComponent} from "./course-details/course-details.component";
 import {CourseFormComponent} from "./course-form/course-form.component";
+import {LoginComponent} from "./login/login.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'courses', component: CourseListComponent },
   { path: 'courses/:subject', component: CourseDetailsComponent },
   { path: 'admin', component: CourseFormComponent },
-  { path: 'admin/:subject', component: CourseFormComponent }
+  { path: 'admin/:subject', component: CourseFormComponent },
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({

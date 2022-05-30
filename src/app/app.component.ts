@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Course} from "./shared/course";
 import { HttpClient } from '@angular/common/http';
+import {AuthenticationService} from "./shared/authentication.service";
 
 @Component({
   selector: 'bs-root',
@@ -10,15 +11,16 @@ export class AppComponent {
   listOn = true;
   detailsOn = false;
 
-  showList() {
-    this.listOn = true;
-    this.detailsOn = false;
+  constructor(private authService:AuthenticationService) {
   }
-  showDetails(course: Course) {
-    this.course = course;
-    this.listOn = false;
-    this.detailsOn = true;
+  isLoggedIn(){
+    return this.authService.isLoggedIn();
   }
+
+  getLoginLabel(){
+    return this.isLoggedIn() ? "Logout" : "Login";
+  }
+
 
   course: Course | undefined;
   title = 'GoStudent';
