@@ -7,7 +7,8 @@ import {Observable} from "rxjs";
 interface Token {
   exp: number,
   user: {
-    id: string;
+    id: string,
+    isTeacher: boolean;
   }
 }
 
@@ -25,6 +26,10 @@ export class AuthenticationService {
     return Number.parseInt(<string>sessionStorage.getItem("userId"));
   }
 
+  public isTeacher() {
+    return Number(sessionStorage.getItem("isTeacher"));
+  }
+
   public setSessionStorage(token: string) {
     console.log("storing token");
     console.log(jwt_decode(token));
@@ -33,6 +38,7 @@ export class AuthenticationService {
     console.log(decodedToken.user.id);
     sessionStorage.setItem("token", token);
     sessionStorage.setItem("userId", decodedToken.user.id);
+    sessionStorage.setItem("isTeacher", String(decodedToken.user.isTeacher));
 
   }
 
@@ -40,6 +46,7 @@ export class AuthenticationService {
     this.http.post(`${this.api}/logout`, {});
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("isTeacher");
     console.log("Logged out");
   }
 

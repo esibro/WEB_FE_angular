@@ -1,4 +1,10 @@
 export class User {
-  constructor(public id: number, public firstname: string, public lastname: string, public email: string, public description: string, public password: string, public role: string) {
+  constructor(public id: number,
+              public firstname: string,
+              public lastname: string,
+              public email: string,
+              public description: string,
+              public password: string,
+              public isTeacher: boolean) {
   }
 }

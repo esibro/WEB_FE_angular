@@ -8,19 +8,24 @@ import {AuthenticationService} from "./shared/authentication.service";
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  listOn = true;
-  detailsOn = false;
 
   constructor(private authService:AuthenticationService) {
+  }
+
+  isTeacher(){
+    return this.authService.isTeacher();
   }
   isLoggedIn(){
     return this.authService.isLoggedIn();
   }
 
+  getUserId(){
+    return this.authService.getCurrentUserId();
+  }
+
   getLoginLabel(){
     return this.isLoggedIn() ? "Logout" : "Login";
   }
-
 
   course: Course | undefined;
   title = 'GoStudent';

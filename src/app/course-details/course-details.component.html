@@ -1,32 +1,77 @@
+<div class="ui container">
 <div class="ui grid" *ngIf="course">
   <div class="twelve wide column">
     <h1 class="ui header">{{ course.subject }}</h1>
+    <a *ngIf="this.authService.isLoggedIn() && course.state == 'pending'" class="ui teal label">requested</a>
+    <a *ngIf="this.authService.isLoggedIn() && course.state == 'booked'" class="ui olive label">booked</a>
+    <a *ngIf="course.state == 'available'" class="ui purple label">available</a>
     <h3 class="ui header">{{ course.description }}</h3>
     <div class="ui divider"></div>
     <div class="ui grid">
       <div class="four wide column">
         <h4 class="ui header">Lehrende</h4>
         <span *ngFor="let user of course.users; last as l">
-          <span *ngIf="user.role==='teacher'">
-            {{ user.firstname }} {{ user.lastname }}<span *ngIf="!l">,</span></span>
+          <span *ngIf="course.user_id == user.id">
+            {{ user.firstname }} {{ user.lastname }}<span *ngIf="!l"><br></span></span>
         </span>
         <h4 class="ui header">Level: {{ course.level }}</h4>
       </div>
       <div class="four wide column">
-        <h4 class="ui header">verfügbare Termine</h4>
-        <span *ngFor="let timeslot of course.timeslots; last as l">
-          {{ timeslot.date }}<span *ngIf="!l"><br></span>
+        <h4 class="ui header">Termine</h4>
+
+        <!--Logged in and student option to select date-->
+        <span *ngIf="authService.isLoggedIn()&&!authService.isTeacher() && course.state == 'available'">
+          <div class="field">
+              <form *ngIf="authService.isLoggedIn() && !authService.isTeacher()" class="ui" >
+                <span *ngFor="let timeslot of course.timeslots; last as l">
+                <input type="radio" id="{{ timeslot.id }}" name="selectedDate">
+                  <label for="{{ timeslot.id }}"> {{ timeslot.date }}</label>
+                  <span *ngIf="!l"><br></span>
+                </span>
+              </form>
+
+            <button type="submit" class="ui tiny yellow labeled icon button"
+                    (click)="submit()"><i class="add icon"></i> Request course</button>
+          </div>
         </span>
+
+        <!--Teacher or not logged in-->
+        <span *ngIf="!authService.isLoggedIn()|| authService.isTeacher()">
+          <div class="field">
+        <span *ngFor="let timeslot of course.timeslots; last as l">
+          <span >{{ timeslot.date }}</span><span *ngIf="!l"><br></span>
+          </span>
       </div>
+
+          </span>
+
+        <span *ngIf="!authService.isTeacher() && course.state == 'requested'">
+          <p>Derzeit keine Termine verfügbar</p>
+        </span>
+
     </div>
   </div>
 </div>
-<button [routerLink]="'/courses'" class="ui red button">Zurück zur Kursliste</button>
-<button class="ui tiny red labeled icon button"
+</div>
+
+
+
+<button *ngIf="authService.isLoggedIn() && authService.isTeacher() && course.user_id == authService.getCurrentUserId() && course.state == 'available'" class="ui tiny red labeled icon button"
         (click)="removeBook()">
   <i class="remove icon"></i> Kurs löschen
 </button>
-<a class="ui tiny yellow labeled icon button"
+<a *ngIf="authService.isLoggedIn() && authService.isTeacher() && course.user_id == authService.getCurrentUserId() && course.state == 'available'" class="ui tiny yellow labeled icon button"
    [routerLink]="['../../admin', course?.subject]">
   <i class="write icon"></i> Edit course
 </a>
+<button *ngIf="authService.isLoggedIn() && authService.isTeacher() && course.user_id == authService.getCurrentUserId() && course.state == 'requested'" class="ui tiny green labeled icon button"
+        (click)="acccept()">
+  <i class="check icon"></i> Accept request
+</button>
+<button *ngIf="authService.isLoggedIn() && authService.isTeacher() && course.user_id == authService.getCurrentUserId() && course.state == 'requested'" class="ui tiny red labeled icon button"
+        (click)="reject()">
+  <i class="times icon"></i> Reject request
+</button>
+<br>
+<button [routerLink]="'/courses'" class="ui red button">Zurück zur Kursliste</button>
+</div>

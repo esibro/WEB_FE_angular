@@ -22,6 +22,16 @@ export class GoStudentService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 
+  getByUserId(userid: number):Observable<Array<Course>>{
+    return this.http.get<Array<Course>>(`${this.api}/mycourses/${userid}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
+  getByStudentId(student_id: number):Observable<Array<Course>>{
+    return this.http.get<Array<Course>>(`${this.api}/mycourses/student/${student_id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
   remove(subject: string): Observable<any> {
     return this.http.delete(`${this.api}/courses/${subject}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler));

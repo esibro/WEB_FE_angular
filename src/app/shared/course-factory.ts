@@ -2,8 +2,8 @@ import {Course, Timeslot, User} from "./course";
 
 export class CourseFactory {
   static empty(): Course {
-    return new Course(0, '', '', '',
-      [new User(0, '', '', '', '', '', '')],
+    return new Course(0, '', '', '', 0, 0,
+      [new User(0, '', '', '', '', '', true)],
       [new Timeslot(0, new Date())], '');
   }
 
@@ -12,7 +12,9 @@ export class CourseFactory {
       rawCourse.id,
       rawCourse.subject,
       rawCourse.level,
-      rawCourse.status,
+      rawCourse.state,
+      rawCourse.user_id,
+      rawCourse.student_id,
       rawCourse.users,
       rawCourse.timeslots,
       //typeof(rawCourse.timeslots) === 'string'?

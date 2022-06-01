@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {GoStudentService} from "../shared/go-student.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CourseFactory} from "../shared/course-factory";
 import {CourseFormErrorMessages} from "./course-form-error-messages";
-import {Course} from "../shared/course";
+import {Course, User} from "../shared/course";
+import {AuthenticationService} from "../shared/authentication.service";
+
+
+
 
 @Component({
   selector: 'bs-course-form',
@@ -18,15 +22,18 @@ export class CourseFormComponent implements OnInit {
   errors: { [key: string]: string } = {};
   isUpdatingCourse = false;
   timeslots: FormArray;
+  //users: { [key: number] : any}
 
   constructor(
     private fb: FormBuilder,
     private bs: GoStudentService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public authService: AuthenticationService
   ) {
     this.courseForm = this.fb.group({});
     this.timeslots = this.fb.array([]);
+
   }
 
   ngOnInit(): void {
@@ -55,7 +62,8 @@ export class CourseFormComponent implements OnInit {
         this.course.level, [
           Validators.required,
         ]],
-      timeslots: this.timeslots
+      timeslots: this.timeslots,
+      //users: this.course.users
 
     });
     this.courseForm.statusChanges.subscribe(() =>
@@ -98,23 +106,26 @@ export class CourseFormComponent implements OnInit {
 
   submitForm(){
     this.courseForm.value.timeslots = this.courseForm.value.timeslots.filter(
-      (timeslot: {date: string; })=> timeslot.date
+      (timeslot: {date: string; }) => timeslot.date
     );
 
     const course: Course = CourseFactory.fromObject(this.courseForm.value);
-    //course.users = this.course.users;
     if (this.isUpdatingCourse) {
       this.bs.update(course).subscribe(res => {
         this.router.navigate(['../../courses', course.subject], {
           relativeTo: this.route
         });
       });
-    } else
+    } else {
+      course.state = "available";
+      course.user_id = this.authService.getCurrentUserId();
       this.bs.create(course).subscribe(res=>{
         this.course = CourseFactory.empty();
         this.courseForm.reset(CourseFactory.empty());
         this.router.navigate(['../courses'], {relativeTo: this.route})
       })
+    }
+
   }
 
 }

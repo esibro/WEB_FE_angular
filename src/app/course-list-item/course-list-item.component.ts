@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Course} from "../shared/course";
+import {AuthenticationService} from "../shared/authentication.service";
 
 @Component({
   selector: 'a.bs-course-list-item',
@@ -10,7 +11,7 @@ import {Course} from "../shared/course";
 export class CourseListItemComponent implements OnInit {
 
   @Input() course: Course | undefined;
-  constructor() { }
+  constructor( public authService: AuthenticationService) { }
 
   ngOnInit(): void {
   }

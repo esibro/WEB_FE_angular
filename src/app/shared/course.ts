@@ -9,7 +9,9 @@ export class Course {
     public id: number,
     public subject: string,
     public level: string,
-    public status: string,
+    public state: string,
+    public user_id: number,
+    public student_id: number,
     public users: User[],
     public timeslots: Timeslot[],
     public description?: string

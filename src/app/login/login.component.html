@@ -1,3 +1,4 @@
+<div class="container ui main">
 <div *ngIf="!isLoggedIn()">
 
   <h1>Login</h1>
@@ -21,7 +22,6 @@
       <div *ngIf="loginForm.get('password')?.invalid &&
       (loginForm.get('password')?.dirty || loginForm.get('password')?.touched) &&
       loginForm.get('password')?.hasError('required')" class="ui negative message">Password is required</div>
-
     </div>
 
     <button type="submit" class="button ui" [disabled]="loginForm.invalid">Login</button>
@@ -33,3 +33,4 @@
   <button type="submit" class="button ui" (click)="logout()">Logout</button>
 </div>
 
+</div>

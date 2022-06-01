@@ -4,12 +4,13 @@
       <div class="description"> {{ course.description }} </div>
       <div class="metadata">
         <span *ngFor="let user of course.users; last as l">
-          <span *ngIf="user.role==='teacher'">
+          <span *ngIf="user.isTeacher===true">
           {{ user.firstname }} {{ user.lastname }}<span *ngIf="!l">
           </span></span></span>
       </div>
-      <span *ngFor="let timeslot of course.timeslots;">
-        {{timeslot.date}}
-      </span>
+      <a *ngIf="this.authService.isLoggedIn() && course.state == 'pending' && course.user_id == this.authService.getCurrentUserId() || course.student_id == this.authService.getCurrentUserId()" class="ui teal label">requested</a>
+    <a *ngIf="this.authService.isLoggedIn() && course.state == 'booked'" class="ui olive label">booked</a>
+    <a *ngIf="course.state == 'available'" class="ui purple label">available</a>
+
     </div>
 </span>

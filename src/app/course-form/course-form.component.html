@@ -1,3 +1,4 @@
+<div class="ui container">
 <h1>Course form</h1>
 <form class="ui large form" [formGroup]="courseForm" (ngSubmit)="submitForm()">
 <input type="hidden" formControlName="id">
@@ -32,6 +33,7 @@
     </div>
   </div>
 
-  <button type="submit" class="ui button" [disabled]="courseForm.invalid">Save course</button>
-
+  <button type="submit" class="ui button" [disabled]="courseForm.invalid" >Save course</button>
+  <!--(click)="authService.getCurrentUserId()"-->
 </form>
+</div>
